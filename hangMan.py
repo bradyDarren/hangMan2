@@ -57,21 +57,24 @@ print("\n\nThis game of Hangman is pertaining to the classic tv show/movie/video
 
 # List of word the user could possible be given. 
 sonic_list = [
-    "Sonic the Hedgehog",
-    "Tails",
-    "Knuckles",
-    "Dr. Robotnik",
-    "Chaos Emeralds",
-    "Green Hill Zone",
-    "Super Sonic",
-    "Amy Rose",
-    "Shadow the Hedgehog",
-    "Chili Dogs"
+    "sonic the hedgehog",
+    "tails",
+    "knuckles",
+    "dr. robotnik",
+    "chaos emeralds",
+    "green hill zone",
+    "super sonic",
+    "amy rose",
+    "shadow the hedgehog",
+    "chili dogs"
 ]
 
+# random generation of a word from sonic_list. 
 rand_word = random.choice(sonic_list)
+# designation of the max amount of lives a player is allowed to have.
 max_lives = 6
 
+# function used to determine the amount of blank spaces displayed according to the generated random word.
 def blank_spaces(word):
     blanks = []
     for x in word:
@@ -79,16 +82,31 @@ def blank_spaces(word):
             blanks += " "
         elif x == "-":
             blanks += "-"
+        elif x == ".":
+            blanks += "."
         else:
             blanks += "_"
-    return "".join(blanks)
+    return blanks
 
-def guess_word(char, blanks):
-    while "_" in blanks or max_lives != 0:
-        user_guess = input("Guess a word: ")
-        if user_guess in rand_word:
-            blank_spaces(rand_word[user_guess])
-            
+# Showing the player the amount of spaces within the word.
+print("".join(blank_spaces(rand_word)))
+
+#TEST
+print(rand_word)
+
+user_guess =  input("Guess a letter: ")
+
+blank_word = blank_spaces(rand_word)
+
+def guess_word():
+    for i, char in enumerate(rand_word):
+        if char == user_guess: 
+            blank_word[i] = user_guess
+        elif char != user_guess: 
+            max_lives -= 1 
+            print(f"You have {max_lives}/6 left.")
+
+    return "".join(blank_word)
 
 
             
