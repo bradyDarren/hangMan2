@@ -89,7 +89,7 @@ def blank_spaces(word):
     return blanks
 
 #TEST
-print(rand_word)
+# print(rand_word)
 
 blank_word = blank_spaces(rand_word)
 
@@ -97,6 +97,7 @@ while max_lives > 0:
     # Showing the player the amount of spaces within the word.
     print("".join(blank_word))
     user_guess =  input("Guess a letter: ")
+    # Evaluating the users input to see if it is within our random word and inserting it into one of our blanks if it is correct.
     if user_guess in rand_word: 
         for i, char in enumerate(rand_word):
             if char == user_guess:
@@ -108,10 +109,12 @@ while max_lives > 0:
         print(f"your letter {user_guess} was not in our word. Lose a life.")
         print(f"***************{max_lives}/6 remaining***************")
 
+    # if no more blanks are present the user has won the game.
     if "_" not in blank_word: 
         print(f"Congrats you did it with {max_lives} lives left.")
         break
     
+    # if no more lives are available then the game is over.
     if max_lives == 0: 
         print(f"Game over. You have used all of your lives.")
         
