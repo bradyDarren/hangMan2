@@ -88,25 +88,33 @@ def blank_spaces(word):
             blanks += "_"
     return blanks
 
-# Showing the player the amount of spaces within the word.
-print("".join(blank_spaces(rand_word)))
-
 #TEST
 print(rand_word)
 
-user_guess =  input("Guess a letter: ")
-
 blank_word = blank_spaces(rand_word)
 
-def guess_word():
-    for i, char in enumerate(rand_word):
-        if char == user_guess: 
-            blank_word[i] = user_guess
-        elif char != user_guess: 
-            max_lives -= 1 
-            print(f"You have {max_lives}/6 left.")
+while max_lives > 0:
+    # Showing the player the amount of spaces within the word.
+    print("".join(blank_word))
+    user_guess =  input("Guess a letter: ")
+    if user_guess in rand_word: 
+        for i, char in enumerate(rand_word):
+            if char == user_guess:
+                blank_word[i] = user_guess
+                print(f"your letter {user_guess} was in our word. Has been added")
+                print(f"***************{max_lives}/6 remaining***************")
+    elif user_guess not in rand_word: 
+        max_lives -= 1
+        print(f"your letter {user_guess} was not in our word. Lose a life.")
+        print(f"***************{max_lives}/6 remaining***************")
 
-    return "".join(blank_word)
+    if "_" not in blank_word: 
+        print(f"Congrats you did it with {max_lives} lives left.")
+        break
+    
+    if max_lives == 0: 
+        print(f"Game over. You have used all of your lives.")
+        
 
 
             
